@@ -26,6 +26,13 @@
                                 <p class="font-weight-bold">自己紹介</p>
                                 <span>{{ $user->introduce }}</span>
                             </div>
+                            @if(auth()->user()->id == $user->id || 5 >= auth()->user()->permission)
+                            <!-- ログイン中のユーザーIDが同じ、もしくはpermissionが5以下なら編集可 -->
+                            <form style="display: inline-block; float:right" action="">
+                              @csrf
+                            <button class="btn btn-primary">編集</button>
+                            </form>
+                            @endif
                         </div>
                     </div>
                 </div>

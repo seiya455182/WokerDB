@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->tinyInteger('permission')->default(10)->comment('権限:10閲覧のみ,5編集まで,0権限管理まで');
             $table->rememberToken();
             $table->timestamps();
         });
