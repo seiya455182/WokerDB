@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -12,7 +13,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('名前') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -46,18 +47,18 @@
 
                         <div class="input-group row">
                           <label for="profile_image" class="col-md-4 col-form-label text-md-right">プロフィール画像</label>
-                          <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" name="profile_image">
-                            <label class="custom-file-label" for="customFile" data-browse="参照">ファイル選択...</label>
-                          </div>
-                          <div class="input-group-append">
-                            <button type="button" class="btn btn-outline-secondary reset">取消</button>
-                          </div>
+                            <div class="col-md-6 d-flex align-items-center">
+                              <input type="file" name="profile_image" class="@error('profile_image') is-invalid @enderror" autocomplete="profile_image">
+                              @error('profile_image')
+                              <span class="invalid-feedback" role="alert">
+                                 <strong>{{ $message }}</strong>
+                              </span>
+                              @enderror
+                           </div>
                         </div>
 
-
                         <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('メールアドレス') }}</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -71,7 +72,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
+                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('パスワード') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -85,7 +86,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('確認') }}</label>
 
                             <div class="col-md-6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
@@ -95,7 +96,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('登録') }}
                                 </button>
                             </div>
                         </div>
@@ -105,4 +106,5 @@
         </div>
     </div>
 </div>
+
 @endsection

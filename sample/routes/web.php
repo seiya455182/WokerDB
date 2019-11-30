@@ -19,4 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('users','UsersController',['only'=>['index']]);
+Route::resource('users','UsersController',['only'=>['index','show']]);

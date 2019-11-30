@@ -53,7 +53,8 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return view('woker.show',['user' => $user]);
     }
 
     /**

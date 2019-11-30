@@ -2,10 +2,9 @@
   @section('content')
     <div class="container">
       <div class="row">
+        @foreach($users as $users)
         <div class="col-3">
           <div class="card" style="width:18rem;">
-            @foreach($users as $users)
-
               @if($users->profile_image == NULL)
                 <img src="/storage/noimage.jpg" style="height:18rem" class="card-img-top">
                 @else
@@ -15,23 +14,20 @@
               <div class="card-body">
                 <h4 class="card-title">
                   <p>{{ $users->name }}</p>
-                  <p>性別　　@if($users->gender == 1)
-                          男
-                      @elseif($users->gender == 2)
-                          女
-                      @else
-                          その他
-                      @endif
-                  </p>
                 </h4>
+                <form
+                style="display: inline-block; float:right"
+                action="{{ route('users.show',['id' => $users->id ]) }}"
+                >
+                @csrf
+                <button class="btn btn-primary">詳細</button>
+              </form>
               </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">自己紹介</li>
-                <li class="list-group-item">{{ $users->Introduce }}</li>
-              </ul>
-            @endforeach
+              <div class="card-footer">
+              </div>
           </div>
         </div>
+        @endforeach
       </div>
     </div>
   @endsection
