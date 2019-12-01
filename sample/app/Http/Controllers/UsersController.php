@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
 class UsersController extends Controller
@@ -22,6 +23,7 @@ class UsersController extends Controller
         'users' => $users,
         'login_user_id'    =>$login_user_id
       ]);
+
     }
 
     /**
@@ -63,9 +65,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)//編集用画面へ(GET)
+    public function edit(User $user)//編集用画面へ(GET)
     {
-        //
+        return view('woker.edit',['user' => $user]);
     }
 
     /**
@@ -75,9 +77,22 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id) //editの編集画面をDBに格納
+    public function update(Request $request, User $user) //editの編集画面をDBに格納
     {
-        //
+
+        //Userモデルをインスタンス化して、
+      $data = $request->all();
+
+      $validator= Validator::make($data, [
+          'name' => ['required', 'string', 'max:255'],
+          'gender' => ['required'],
+          'introduce' => ['required','string','max:255'],
+          'profile_image' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
+      ]);
+      $validator->validate();
+      $user->updateuser($data);
+
+      return redirect('users/'.$user->id);
     }
 
     /**

@@ -42,4 +42,30 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function updateuser(array $params)
+    {
+      // dd($params);
+      if (isset($data['profile_image'])) {
+        $file_name = $data['profile_image']->store('public');   //store()で保存すると、戻り値にpublic/がつく
+        $file_name = str_replace('public/', '', $file_name);    //シンボリックリンクの先がstorageから一気にpublicに飛ぶので文字列profile＿imageのpublic/を消した。
+
+
+      $this::where('id', $this->id)
+      ->update([
+        'name'          => $params['name'],
+        'gender'        => $params['gender'],
+        'introduce'     => $params['introduce'],
+        'profile_image' => basename($file_name),
+      ]);
+      } else {
+        $this::where('id', $this->id)
+        ->update([
+          'name'          => $params['name'],
+          'gender'        => $params['gender'],
+          'introduce'     => $params['introduce'],
+        ]);
+      }
+
+    return;
+    }
 }

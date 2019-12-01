@@ -19,4 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('users','UsersController',['only'=>['index','show']]);
+// Route::resource('users','UsersController',['only'=>['index','show']]);
+Route::group(['middleware' => ['auth', 'can:browse-permission']], function () {
+  // ユーザ一覧
+
+});
+
+Route::group(['middleware' => ['auth' or 'can:edit-permission']], function() {
+
+});
+    Route::resource('users','UsersController',['only'=>['index','show','edit','update']]);

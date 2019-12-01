@@ -28,7 +28,7 @@
                             </div>
                             @if(auth()->user()->id == $user->id || 5 >= auth()->user()->permission)
                             <!-- ログイン中のユーザーIDが同じ、もしくはpermissionが5以下なら編集可 -->
-                            <form style="display: inline-block; float:right" action="">
+                            <form style="display: inline-block; float:right" action="{{ route('users.edit',['user'=>$user])}}">
                               @csrf
                             <button class="btn btn-primary">編集</button>
                             </form>
