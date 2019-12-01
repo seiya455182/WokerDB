@@ -9,10 +9,10 @@
                     <div class="p-5 d-flex flex-column">
                         <img src="{{ asset('storage/'.$user->profile_image) }}"  width="200" height="200">
                         <div class="mt-3 d-flex flex-column">
-                            <h4 class="mb-0 font-weight-bold">{{ $user->name }}</h4>
+                            <h4 class="mb-0 font-weight-bold">名前:{{ $user->name }}</h4>
                         </div>
                         <div class="mt-3 d-flex flex-column">
-                            <h4 class="mb-0 font-weight-bold">
+                            <h4 class="mb-0 font-weight-bold">性別:
                             @if($user->gender == 1)男性
                             @elseif($user->gender == 2)女性
                             @elseその他
@@ -31,6 +31,16 @@
                             <form style="display: inline-block; float:right" action="{{ route('users.edit',['user'=>$user])}}">
                               @csrf
                             <button class="btn btn-primary">編集</button>
+                            </form>
+                            @endif
+                            @if(auth()->user()->id == $user->id || 5 >= auth()->user()->permission)
+                            <!-- ログイン中のユーザーIDが同じ、もしくはpermissionが5以下なら削除可 -->
+                            <form style="display:inline" action="{{ route('users.destroy',$id = $user->id) }}" method="post" enctype="multipart/form-data">
+                              @method('DELETE')
+                              @csrf
+                              <button type="submit" class="btn btn-danger">
+                                  削除
+                              </button>
                             </form>
                             @endif
                         </div>

@@ -20,12 +20,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Route::resource('users','UsersController',['only'=>['index','show']]);
-Route::group(['middleware' => ['auth', 'can:browse-permission']], function () {
-  // ユーザ一覧
-
+Route::group(['middleware' => ['auth', 'can:edit-permission']], function () {
+  Route::get('admin-index','AdminController@index')->name('admin-index');
+});
+Route::group(['middleware' => ['auth', 'can:all-permission']], function () {
+  Route::resource('admin','AdminController',['only'=>['edit']]);
 });
 
-Route::group(['middleware' => ['auth' or 'can:edit-permission']], function() {
-
+Route::group(['middleware' => 'auth'], function() {
+    Route::resource('users','UsersController',['only'=>['index','show','edit','update','destroy']]);
 });
-    Route::resource('users','UsersController',['only'=>['index','show','edit','update']]);

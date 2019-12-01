@@ -15,13 +15,8 @@
                 <h4 class="card-title">
                   <p>{{ $users->name }}</p>
                 </h4>
-                <form
-                style="display: inline-block; float:right"
-                action="{{ route('users.show',['id' => $users->id ]) }}"
-                >
-                @csrf
-                <button class="btn btn-primary">詳細</button>
-              </form>
+                <a class="btn btn-primary" style="display: inline-block; float:right"
+                href="{{ route('users.show',['id' => $users->id ]) }}">詳細</a>
               </div>
               <div class="card-footer">
               </div>
@@ -30,4 +25,4 @@
         @endforeach
       </div>
     </div>
-  @endsection
+@endsection

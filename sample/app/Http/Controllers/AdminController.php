@@ -4,10 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
-class UsersController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class UsersController extends Controller
     public function index()
     {
       $users = User::orderBy('id', 'asc')->get();
-      return view('woker.index',['users' => $users]);
+      return view('woker.admin-index',['users' => $users]);
     }
 
     /**
@@ -49,8 +48,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
-        return view('woker.show',['user' => $user]);
+        //
     }
 
     /**
@@ -59,9 +57,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)//編集用画面へ(GET)
+    public function edit()
     {
-        return view('woker.edit',['user' => $user]);
+        $users = User::orderBy('id', 'asc')->get();
+        return view('woker.admin-edit',['users' => $users]);
     }
 
     /**
@@ -71,22 +70,9 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user) //editの編集画面をDBに格納
+    public function update(Request $request, $id)
     {
-
-        //Userモデルをインスタンス化して、
-      $data = $request->all();
-
-      $validator= Validator::make($data, [
-          'name' => ['required', 'string', 'max:255'],
-          'gender' => ['required'],
-          'introduce' => ['required','string','max:255'],
-          'profile_image' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
-      ]);
-      $validator->validate();
-      $user->updateuser($data);
-
-      return redirect('users/'.$user->id);
+        //
     }
 
     /**
@@ -97,9 +83,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
-
-        return redirect('users/');
-
+        //
     }
 }

@@ -69,14 +69,21 @@ class RegisterController extends Controller
         if (isset($data['profile_image'])) {
           $file_name = $data['profile_image']->store('public');   //store()で保存すると、戻り値にpublic/がつく
           $file_name = str_replace('public/', '', $file_name);    //シンボリックリンクの先がstorageから一気にpublicに飛ぶので文字列profile＿imageのpublic/を消した。
-        }
 
-        return User::create([
+          return User::create([
             'name' => $data['name'],
             'gender' =>$data['gender'],
             'profile_image' =>$file_name,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
+          ]);
+        }else{
+          return User::create([
+            'name' => $data['name'],
+            'gender' =>$data['gender'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+          ]);
+        }
     }
 }
