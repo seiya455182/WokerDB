@@ -19,70 +19,25 @@ class AdminController extends Controller
       return view('woker.admin-index',['users' => $users]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function index2()
     {
-        //
+      $users = User::orderBy('id', 'asc')->get();
+      return view('woker.admin-index2',['users' => $users]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function change_permission($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit()
-    {
-        $users = User::orderBy('id', 'asc')->get();
-        return view('woker.admin-edit',['users' => $users]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+      $permission = User::where('id',$id)->value('permission');
+      //value()メソッドで指定した1つのカラムのみを取得します。
+      if($permission == 10){
+        User::where('id',$id)->update([   //permissionが10(閲覧者)なら5(編集者)を付与
+          'permission' => 5
+        ]);
+      }else{
+        User::where('id',$id)->update([
+          'permission' => 10
+        ]);
+      }
+      return back();
     }
 }

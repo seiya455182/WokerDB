@@ -19,6 +19,7 @@ class User extends Authenticatable
         'name',
         'gender',
         'profile_image',
+        'permission',
         'Introduce',
         'email',
         'password',
@@ -40,11 +41,11 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'permission' => 'integer',
     ];
 
     public function updateuser(array $params)
     {
-      // dd($params);
       if (isset($params['profile_image'])) {
         $file_name = $params['profile_image']->store('public');   //store()で保存すると、戻り値にpublic/がつく
         $file_name = str_replace('public/', '', $file_name);    //シンボリックリンクの先がstorageから一気にpublicに飛ぶので文字列profile＿imageのpublic/を消した。
@@ -65,7 +66,7 @@ class User extends Authenticatable
           'introduce'     => $params['introduce'],
         ]);
       }
-
-    return;
+      return;
     }
+
 }

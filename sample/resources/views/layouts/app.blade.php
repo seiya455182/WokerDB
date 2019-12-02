@@ -23,7 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ route('users.index') }}">
                     従業員データベース
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -41,11 +41,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('ログイン') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('登録') }}</a>
                                 </li>
                             @endif
                         @else
@@ -57,9 +57,11 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('users.show',['id'=>auth()->user()->id]) }}">マイページ</a>
                                     @if(auth()->user()->permission <= 5)
-                                    <a class="dropdown-item" href="{{ route('admin-index') }}">管理者画面</a>
+                                    <a class="dropdown-item" href="{{ route('admin-index') }}">編集者画面</a>
                                      @endif
-
+                                     @if(auth()->user()->permission == 1)
+                                     <a class="dropdown-item" href="{{ route('admin-index2') }}">管理者画面</a>
+                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

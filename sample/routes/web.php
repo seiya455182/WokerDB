@@ -19,12 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Route::resource('users','UsersController',['only'=>['index','show']]);
 Route::group(['middleware' => ['auth', 'can:edit-permission']], function () {
   Route::get('admin-index','AdminController@index')->name('admin-index');
 });
 Route::group(['middleware' => ['auth', 'can:all-permission']], function () {
-  Route::resource('admin','AdminController',['only'=>['edit']]);
+  Route::get('admin-index2','AdminController@index2')->name('admin-index2');
+  Route::post('admin-index2/{id}/chenge_permission', 'AdminController@change_permission')->name('permission');
 });
 
 Route::group(['middleware' => 'auth'], function() {
