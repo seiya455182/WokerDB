@@ -9,6 +9,7 @@
             <th>名前</th>
             <th>性別</th>
             <th>権限レベル</th>
+            <th></th>
             <th>編集権限付与</th>
           </tr>
         </thead>
@@ -28,6 +29,18 @@
                 @elseif($users->permission == 5)編集可
                 @else閲覧可
                 @endif
+              </td>
+              <td>
+                <form style="display:inline; float:right" action="{{ route('users.destroy',['id' => $users->id ]) }}"
+                  method="post" enctype="multipart/form-data">
+                  @method('DELETE')
+                  @csrf
+                  <button type="submit" class="btn btn-danger">
+                    削除
+                  </button>
+                </form>
+                <a class="btn btn-primary" style="display:inline-block; float:right"
+                href="{{ route('users.edit',['id' => $users->id ]) }}">詳細編集</a>
               </td>
               <td>
                 @if($users->permission >= 6)

@@ -30,3 +30,5 @@ Route::group(['middleware' => ['auth', 'can:all-permission']], function () {
 Route::group(['middleware' => 'auth'], function() {
     Route::resource('users','UsersController',['only'=>['index','show','edit','update','destroy']]);
 });
+
+Route::resource('test','TestController',['only' => ['index']]);

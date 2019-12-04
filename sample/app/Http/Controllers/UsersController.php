@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 
+
 class UsersController extends Controller
 {
     /**
@@ -14,11 +15,37 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-      $users = User::orderBy('id', 'asc')->get();
-      return view('woker.index',['users' => $users]);
+      $name = $request->get('search');
+      $gender = $request->get('gender');
+      $query = User::query();
+
+      if(!empty($name)) {
+        $query->where('name', 'like', '%'.$name.'%');
+      }
+      if(!empty($gender)) {
+        $query->where('gender', 'like', '%'.$gender.'%');
+      }
+
+      $users = $query->get();
+       return view('woker.index',['users' => $users]);
     }
+
+
+    // $name = $request->get('search');
+    // $gender = $request->get('gender');
+    //   dd($gender);
+    // if(!empty($name).!empty($gender)) {
+    //   $data = User::where('name', 'like', '%'.$name.'%')         //色々トライしたけどこれじゃできなかった
+    //   ->orWhere('gender', 'like', '%'.$gender.'%')->get();
+    //   return view('woker.index',['users' => $data]);
+    // }else{
+    //   $users = User::orderBy('id', 'asc')->get();
+    //   return view('woker.index',['users' => $users]);
+    // }
+
+
 
     /**
      * Show the form for creating a new resource.
