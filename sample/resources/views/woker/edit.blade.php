@@ -45,15 +45,9 @@
                         <div class="d-flex justify-content-end">
                             <div class="p-2 d-flex flex-column align-items-center">
                                 <p class="font-weight-bold">自己紹介</p>
-                                <textarea id="introduce" name="introduce" class="form-control {{ $errors->has('introduce') ? 'is-invalid' : '' }}"
-                                  rows="10" cols="60">
+                                <textarea id="introduce" name="introduce" rows="10" cols="60">
                                   {{ old('introduce') ?: $user->introduce }}
                                 </textarea>
-                                  @if ($errors->has('introduce'))
-                                  <div class="invalid-feedback">
-                                    {{ $errors->first('introduce') }}
-                                  </div>
-                                  @endif
                             </div>
                         </div>
                         <button class="btn btn-success">更新</button>

@@ -101,18 +101,16 @@ class UsersController extends Controller
     public function update(Request $request, User $user) //editの編集画面をDBに格納
     {
 
-        //Userモデルをインスタンス化して、
       $data = $request->all();
-
       $validator= Validator::make($data, [
           'name' => ['required', 'string', 'max:255'],
           'gender' => ['required'],
-          'introduce' => ['required','string','max:255'],
+          'introduce' => ['string','max:255'],
           'profile_image' => ['file', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
       ]);
-      $validator->validate();
-      $user->updateuser($data);
 
+
+      $user->updateuser($data);
       return redirect('users/'.$user->id);
     }
 
